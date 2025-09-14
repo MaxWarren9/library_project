@@ -2,13 +2,14 @@ package org.example.model.repository;
 
 import org.example.exception.UserNotFoundException;
 import org.example.model.entity.User;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserRepository implements Repository<User>{
+public class UserRepository implements Repository<User> {
     Map<Integer, User> users = new HashMap<>();
-    private int nextId = 0;
+    private int nextId = 1;
 
     public UserRepository() {
         User user1 = new User("Demo", "a@a.ru");
@@ -19,30 +20,25 @@ public class UserRepository implements Repository<User>{
 
     @Override
     public void add(String s) {
-        try {
-            if (s == null || s.isBlank()) {
-                throw new IllegalArgumentException("Пустая строка с параметрами недопустима");
-            }
-            String[] str = s.split(",");
-            if (str.length != 2) {
-                throw new IllegalArgumentException("Вы ввели некорректные параметры пользователя");
-            }
-            String userName = str[0];
-            String userEmail = str[1];
-            if (!isValidEmail(str[1])) {
-                throw new IllegalArgumentException("Невалидный формат email");
-            }
-            if (!isEmailTaken(userEmail)) {
-                throw new IllegalArgumentException("Пользователь с данным email уже существует в базе");
-            }
-            User user = new User(userName, userEmail);
-            user.setId(nextId);
-            users.put(nextId, user);
-            nextId++;
-            System.out.println("Пользователь успешно добавлен в базу");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка при добавлении: " + e.getMessage());
+
+        if (s == null || s.isBlank()) {
+            throw new IllegalArgumentException("Пустая строка с параметрами недопустима");
         }
+        String[] str = s.split(",");
+        if (str.length != 2) {
+            throw new IllegalArgumentException("Вы ввели некорректные параметры пользователя");
+        }
+        String userName = str[0].trim();
+        String userEmail = str[1].trim();
+
+        if (isEmailTaken(userEmail)) {
+            throw new IllegalArgumentException("Пользователь с данным email уже существует в базе");
+        }
+        User user = new User(userName, userEmail);
+        user.setId(nextId);
+        users.put(nextId, user);
+        nextId++;
+        System.out.println("Пользователь успешно добавлен в базу");
     }
 
     @Override
@@ -52,7 +48,7 @@ public class UserRepository implements Repository<User>{
 
     @Override
     public User getById(int id) {
-        if (!users.containsKey(id)) {
+        if (users.get(id) == null) {
             throw new UserNotFoundException("Пользователь с ID " + id + " не найден");
         }
         return users.get(id);
@@ -77,9 +73,5 @@ public class UserRepository implements Repository<User>{
     public boolean isEmailTaken(String email) {
         return users.values().stream()
                 .anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
-    }
-
-    public boolean isValidEmail(String email) {
-        return email != null && email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     }
 }

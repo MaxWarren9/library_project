@@ -11,21 +11,10 @@ public class Book {
     int availableCopies;
 
     public Book(String title, String author, int year, int totalCopies, int availableCopies) {
-        if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Название книги не может быть пустым");
-        }
-        if (author == null || author.isBlank()) {
-            throw new IllegalArgumentException("Автор не может быть пустым");
-        }
-        if (year < 1450 || year > java.time.Year.now().getValue() + 1) {
-            throw new IllegalArgumentException("Некорректный год издания книги");
-        }
-        if (totalCopies < 0 || availableCopies < 0) {
-            throw new IllegalArgumentException("Количество копий и доступных должно быть >= 0");
-        }
-        if (totalCopies < availableCopies) {
-            throw new IllegalArgumentException("Количество копий не может быть меньше числа доступных");
-        }
+        validateTitle(title);
+        validateAuthor(author);
+        validateYear(year);
+        validateCopies(totalCopies, availableCopies);
 
         this.title = title;
         this.author = author;
@@ -35,7 +24,7 @@ public class Book {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -47,6 +36,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
+        validateTitle(title);
         this.title = title;
     }
 
@@ -55,6 +45,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
+        validateAuthor(author);
         this.author = author;
     }
 
@@ -63,6 +54,7 @@ public class Book {
     }
 
     public void setYear(int year) {
+        validateYear(year);
         this.year = year;
     }
 
@@ -71,6 +63,7 @@ public class Book {
     }
 
     public void setTotalCopies(int totalCopies) {
+        validateCopies(totalCopies, this.availableCopies);
         this.totalCopies = totalCopies;
     }
 
@@ -79,6 +72,7 @@ public class Book {
     }
 
     public void setAvailableCopies(int availableCopies) {
+        validateCopies(this.totalCopies, availableCopies);
         this.availableCopies = availableCopies;
     }
 
@@ -103,4 +97,37 @@ public class Book {
     public int hashCode() {
         return Objects.hash(title.toLowerCase(), author.toLowerCase(), year);
     }
+
+
+    private void validateTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Название книги не может быть пустым");
+        }
+    }
+
+    private void validateAuthor(String author) {
+        if (author == null || author.isBlank()) {
+            throw new IllegalArgumentException("Автор не может быть пустым");
+        }
+    }
+
+    private void validateYear(int year) {
+        if (year < 1450 || year > java.time.Year.now().getValue() + 1) {
+            throw new IllegalArgumentException("Некорректный год издания книги");
+        }
+    }
+
+    private void validateCopies(int totalCopies, int availableCopies) {
+        if (totalCopies < 0) {
+            throw new IllegalArgumentException("Количество всех копий книги не может быть отрицательным");
+        }
+        if (availableCopies < 0) {
+            throw new IllegalArgumentException("Количество доступных копий не может быть отрицательным");
+        }
+        if (availableCopies > totalCopies) {
+            throw new IllegalArgumentException("Доступные копии (" + availableCopies +
+                    ") не могут превышать общее количество (" + totalCopies + ")");
+        }
+    }
+
 }
