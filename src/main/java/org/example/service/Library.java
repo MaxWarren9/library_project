@@ -17,7 +17,11 @@ public class Library {
     public void addBook() {
         System.out.println("Введите через запятую название книги, имя автора, год издания, количество копий и количество доступных копий");
         String bookData = scanner.nextLine();
-        bookRepository.add(bookData);
+        try {
+            bookRepository.add(bookData);
+        } catch (IllegalArgumentException e) {
+            printError(e);
+        }
         nextMove();
     }
 
