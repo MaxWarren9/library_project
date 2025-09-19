@@ -1,4 +1,4 @@
-package org.example.model.repository;
+package org.example.repository;
 
 import org.example.exception.BookNotFoundException;
 import org.example.model.entity.Book;

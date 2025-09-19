@@ -2,8 +2,8 @@ import org.example.exception.BookNotFoundException;
 import org.example.exception.UserNotFoundException;
 import org.example.model.entity.Book;
 import org.example.model.entity.User;
-import org.example.model.repository.BookRepository;
-import org.example.model.repository.UserRepository;
+import org.example.repository.BookRepository;
+import org.example.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package org.example.model.repository;
+package org.example.repository;
 
 import java.util.Map;
 
