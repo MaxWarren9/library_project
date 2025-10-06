@@ -23,6 +23,16 @@ public class BookRepository implements Repository<Book> {
         book2.setId(nextId);
         books.put(nextId, book2);
         nextId++;
+
+        Book book3 = new Book("Мы", "Е. Замятин", 1924, 6, 6);
+        book3.setId(nextId);
+        books.put(nextId, book3);
+        nextId++;
+
+        Book book4 = new Book("HRM", "J. Armstrong", 2015, 8, 5);
+        book4.setId(nextId);
+        books.put(nextId, book4);
+        nextId++;
     }
 
     @Override
@@ -57,7 +67,6 @@ public class BookRepository implements Repository<Book> {
         }
         return book;
     }
-
 
     public List<Book> getByTitle(String title) {
         List<Book> bookList = books.values().stream()

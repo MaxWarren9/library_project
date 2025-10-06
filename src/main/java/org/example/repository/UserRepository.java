@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.exception.UserNotFoundException;
+import org.example.model.entity.Loan;
 import org.example.model.entity.User;
 
 import java.util.HashMap;
@@ -16,11 +17,20 @@ public class UserRepository implements Repository<User> {
         user1.setId(nextId);
         users.put(nextId, user1);
         nextId++;
+
+        User user2 = new User("New User", "b@b.ru");
+        user2.setId(nextId);
+        users.put(nextId, user2);
+        nextId++;
+
+        User user3 = new User("Henry Frod", "henry@ford.ru");
+        user3.setId(nextId);
+        users.put(nextId, user3);
+        nextId++;
     }
 
     @Override
     public void add(String s) {
-
         if (s == null || s.isBlank()) {
             throw new IllegalArgumentException("Пустая строка с параметрами недопустима");
         }
