@@ -228,7 +228,7 @@ public class Tests {
         assertEquals(5, bookRepository.getById(4).getAvailableCopies());
         loanRepository.add("4,1");
         assertEquals(2, loanRepository.getAll().size());
-        assertEquals("{ID книги =4, ID пользователя =1, дата выдачи =2025-10-06, дата возврата =null}", loanRepository.getById(2).toString());
+        assertEquals("{ID книги =4, ID пользователя =1, дата выдачи =2025-10-08, дата возврата =null}", loanRepository.getById(2).toString());
         assertEquals(4, bookRepository.getById(4).getAvailableCopies());
 
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, ()-> loanRepository.add("1,2,3"));

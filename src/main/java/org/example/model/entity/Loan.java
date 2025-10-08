@@ -72,7 +72,7 @@ public class Loan {
     }
 
     public void returnBook() {
-        this.returnDate = LocalDate.now();
+        setReturnDate(LocalDate.now());
     }
 
     public boolean isOverdue() {
