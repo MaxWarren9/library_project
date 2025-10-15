@@ -8,11 +8,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class User {
-    int id;
-    String name;
-    String email;
-    Set<Loan> currentLoans;
-    Set<Loan> loansHistory;
+    private int id;
+    private String name;
+    private String email;
+    private Set<Loan> currentLoans;
+    private Set<Loan> loansHistory;
 
     public User(String name, String email) {
         validateName(name);
@@ -91,6 +91,8 @@ public class User {
 
     public void removeLoan(Loan loan) {
         loan.setReturnDate(LocalDate.now());
-        currentLoans = currentLoans.stream().filter(l -> !l.equals(loan)).collect(Collectors.toSet());
+        currentLoans = currentLoans.stream()
+                .filter(l -> !l.equals(loan))
+                .collect(Collectors.toSet());
     }
 }

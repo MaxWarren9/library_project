@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Loan {
-    int id;
-    int bookId;
-    int userId;
-    LocalDate loanDate;
-    LocalDate returnDate;
+    private int id;
+    private int bookId;
+    private int userId;
+    private LocalDate loanDate;
+    private LocalDate returnDate;
 
     public Loan(int bookId, int userId, LocalDate loanDate, LocalDate returnDate) {
         this.bookId = bookId;

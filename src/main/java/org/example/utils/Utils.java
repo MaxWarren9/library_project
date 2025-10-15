@@ -1,7 +1,7 @@
 package org.example.utils;
 
 public class Utils {
-    public static int parseNumber(String str) {
+    public int parseNumber(String str) {
         try {
             String value = str.trim().replaceAll("[^\\d-]", "");
             if (value.isEmpty() || value.equals("-")) {

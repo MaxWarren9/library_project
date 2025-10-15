@@ -65,7 +65,9 @@ public class UserRepository implements Repository<User> {
     }
 
     public List<User> getByName(String name) {
-        List<User> result = users.values().stream().filter(user -> user.getName().toLowerCase().contains(name.toLowerCase())).toList();
+        List<User> result = users.values().stream()
+                .filter(user -> user.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
         if (result.isEmpty()) {
             throw new UserNotFoundException("Пользователей с именем " + name + " не найдено");
         }
@@ -73,7 +75,9 @@ public class UserRepository implements Repository<User> {
     }
 
     public List<User> getByEmail(String email) {
-        List<User> result = users.values().stream().filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase())).toList();
+        List<User> result = users.values().stream()
+                .filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase()))
+                .toList();
         if (result.isEmpty()) {
             throw new UserNotFoundException("Пользователей с почтой " + email + " не найдено");
         }

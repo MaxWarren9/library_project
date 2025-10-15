@@ -2,16 +2,18 @@ package org.example.repository;
 
 import org.example.exception.BookNotFoundException;
 import org.example.model.entity.Book;
+import org.example.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.example.utils.Utils.parseNumber;
+import org.example.utils.Utils.*;
 
 public class BookRepository implements Repository<Book> {
     Map<Integer, Book> books = new HashMap<>();
     private int nextId = 1;
+    Utils utils = new Utils();
 
     public BookRepository() {
         Book book1 = new Book("Маленький принц", "А.Экзюпери", 1951, 3, 2);
@@ -44,7 +46,7 @@ public class BookRepository implements Repository<Book> {
         if (str.length != 5) {
             throw new IllegalArgumentException("Вы ввели некорректные параметры книги");
         }
-        Book book = new Book(str[0], str[1], parseNumber(str[2]), parseNumber(str[3]), parseNumber(str[4]));
+        Book book = new Book(str[0], str[1], utils.parseNumber(str[2]), utils.parseNumber(str[3]), utils.parseNumber(str[4]));
         if (books.containsValue(book)) {
             throw new IllegalArgumentException("Данная книга уже существует в базе");
         }
@@ -91,7 +93,8 @@ public class BookRepository implements Repository<Book> {
 
     public List<Book> getByYear(int year) {
         List<Book> bookList = books.values().stream()
-                .filter(book -> book.getYear() == year).toList();
+                .filter(book -> book.getYear() == year)
+                .toList();
 
         if (bookList.isEmpty()) {
             throw new BookNotFoundException("Книги за " + year + " год не найдены");
