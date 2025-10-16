@@ -2,16 +2,25 @@ package org.example.model.entity;
 
 import jakarta.mail.internet.InternetAddress;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class User {
-    int id;
-    String name;
-    String email;
+    private int id;
+    private String name;
+    private String email;
+    private Set<Loan> currentLoans;
+    private Set<Loan> loansHistory;
 
     public User(String name, String email) {
         validateName(name);
         validateEmail(email);
         this.name = name;
         this.email = email;
+        this.currentLoans = new HashSet<>();
+        this.loansHistory = new HashSet<>();
     }
 
     public int getId() {
@@ -40,6 +49,14 @@ public class User {
         this.email = email;
     }
 
+    public Set<Loan> getCurrentLoans() {
+        return currentLoans;
+    }
+
+    public Set<Loan> getLoansHistory() {
+        return loansHistory;
+    }
+
     @Override
     public String toString() {
         return "Пользователь {" +
@@ -65,5 +82,17 @@ public class User {
         } catch (Exception e) {
             throw new IllegalArgumentException("Формат email не соответствует требуемому");
         }
+    }
+
+    public void addLoan(Loan loan) {
+            currentLoans.add(loan);
+            loansHistory.add(loan);
+    }
+
+    public void removeLoan(Loan loan) {
+        loan.setReturnDate(LocalDate.now());
+        currentLoans = currentLoans.stream()
+                .filter(l -> !l.equals(loan))
+                .collect(Collectors.toSet());
     }
 }

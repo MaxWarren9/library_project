@@ -3,12 +3,12 @@ package org.example.model.entity;
 import java.util.Objects;
 
 public class Book {
-    int id;
-    String title;
-    String author;
-    int year;
-    int totalCopies;
-    int availableCopies;
+    private int id;
+    private String title;
+    private String author;
+    private int year;
+    private int totalCopies;
+    private int availableCopies;
 
     public Book(String title, String author, int year, int totalCopies, int availableCopies) {
         validateTitle(title);

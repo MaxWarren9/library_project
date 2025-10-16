@@ -16,11 +16,20 @@ public class UserRepository implements Repository<User> {
         user1.setId(nextId);
         users.put(nextId, user1);
         nextId++;
+
+        User user2 = new User("New User", "b@b.ru");
+        user2.setId(nextId);
+        users.put(nextId, user2);
+        nextId++;
+
+        User user3 = new User("Henry Frod", "henry@ford.ru");
+        user3.setId(nextId);
+        users.put(nextId, user3);
+        nextId++;
     }
 
     @Override
     public void add(String s) {
-
         if (s == null || s.isBlank()) {
             throw new IllegalArgumentException("Пустая строка с параметрами недопустима");
         }
@@ -55,7 +64,9 @@ public class UserRepository implements Repository<User> {
     }
 
     public List<User> getByName(String name) {
-        List<User> result = users.values().stream().filter(user -> user.getName().toLowerCase().contains(name.toLowerCase())).toList();
+        List<User> result = users.values().stream()
+                .filter(user -> user.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
         if (result.isEmpty()) {
             throw new UserNotFoundException("Пользователей с именем " + name + " не найдено");
         }
@@ -63,7 +74,9 @@ public class UserRepository implements Repository<User> {
     }
 
     public List<User> getByEmail(String email) {
-        List<User> result = users.values().stream().filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase())).toList();
+        List<User> result = users.values().stream()
+                .filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase()))
+                .toList();
         if (result.isEmpty()) {
             throw new UserNotFoundException("Пользователей с почтой " + email + " не найдено");
         }
