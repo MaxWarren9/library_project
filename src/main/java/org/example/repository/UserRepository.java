@@ -1,7 +1,6 @@
 package org.example.repository;
 
 import org.example.exception.UserNotFoundException;
-import org.example.model.entity.Loan;
 import org.example.model.entity.User;
 
 import java.util.HashMap;

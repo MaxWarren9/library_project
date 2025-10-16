@@ -10,14 +10,12 @@ import org.example.repository.UserRepository;
 import java.util.Scanner;
 
 import org.example.utils.Utils;
-import org.example.utils.Utils.*;
 
 public class Library {
     BookRepository bookRepository = new BookRepository();
     UserRepository userRepository = new UserRepository();
     LoanRepository loanRepository = new LoanRepository(bookRepository, userRepository);
     Scanner scanner = new Scanner(System.in);
-    Utils utils = new Utils();
 
     public void addBook() {
         System.out.println("Введите через запятую название книги, имя автора, год издания, количество копий и количество доступных копий");
@@ -38,7 +36,7 @@ public class Library {
     public void getBookByID() {
         System.out.println("Введите ID книги: ");
         try {
-            int bookId = utils.parseNumber(scanner.nextLine());
+            int bookId = Utils.parseNumber(scanner.nextLine());
             Book book = bookRepository.getById(bookId);
             System.out.println(book);
         } catch (BookNotFoundException | IllegalArgumentException e) {
@@ -72,7 +70,7 @@ public class Library {
     public void getBookByYear() {
         System.out.println("Введите год издания: ");
         try {
-            int year = utils.parseNumber(scanner.nextLine());
+            int year = Utils.parseNumber(scanner.nextLine());
             bookRepository.getByYear(year).forEach(System.out::println);
         } catch (BookNotFoundException | IllegalArgumentException e) {
             printError(e);
@@ -99,7 +97,7 @@ public class Library {
     public void getUserByID() {
         System.out.println("Введите ID пользователя: ");
         try {
-            int userId = utils.parseNumber(scanner.nextLine());
+            int userId = Utils.parseNumber(scanner.nextLine());
             System.out.println(userRepository.getById(userId));
         } catch (UserNotFoundException | IllegalArgumentException e) {
             printError(e);
@@ -160,7 +158,7 @@ public class Library {
     public void getLoansByUser() {
         System.out.println("Введите id пользователя для просмотра выданных книг: ");
         String info = scanner.nextLine().trim();
-        int id = utils.parseNumber(info);
+        int id = Utils.parseNumber(info);
         if (loanRepository.getByUserId(id).isEmpty()) {
             System.out.println("История выдачи для пользователя не найдена");
         }
@@ -171,7 +169,7 @@ public class Library {
     public void getLoansByBook() {
         System.out.println("Введите id книги для просмотра истории выдачи: ");
         String info = scanner.nextLine().trim();
-        int id = utils.parseNumber(info);
+        int id = Utils.parseNumber(info);
         loanRepository.getByBookId(id).forEach(System.out::println);
         nextMove();
     }

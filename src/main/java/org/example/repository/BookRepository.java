@@ -8,12 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.example.utils.Utils.*;
-
 public class BookRepository implements Repository<Book> {
     Map<Integer, Book> books = new HashMap<>();
     private int nextId = 1;
-    Utils utils = new Utils();
 
     public BookRepository() {
         Book book1 = new Book("Маленький принц", "А.Экзюпери", 1951, 3, 2);
@@ -46,7 +43,7 @@ public class BookRepository implements Repository<Book> {
         if (str.length != 5) {
             throw new IllegalArgumentException("Вы ввели некорректные параметры книги");
         }
-        Book book = new Book(str[0], str[1], utils.parseNumber(str[2]), utils.parseNumber(str[3]), utils.parseNumber(str[4]));
+        Book book = new Book(str[0], str[1], Utils.parseNumber(str[2]), Utils.parseNumber(str[3]), Utils.parseNumber(str[4]));
         if (books.containsValue(book)) {
             throw new IllegalArgumentException("Данная книга уже существует в базе");
         }

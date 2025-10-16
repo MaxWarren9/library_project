@@ -12,14 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.example.utils.Utils;
-import org.example.utils.Utils.*;
 
-public class LoanRepository implements Repository<Loan>{
+public class LoanRepository implements Repository<Loan> {
 
     Map<Integer, Loan> loans = new HashMap<>();
     BookRepository bookRepository;
     UserRepository userRepository;
-    Utils utils = new Utils();
 
     private int nextId = 1;
 
@@ -43,8 +41,8 @@ public class LoanRepository implements Repository<Loan>{
         if (str.length != 2) {
             throw new IllegalArgumentException("Введите 2 параметра - id книги и id пользователя");
         }
-        int bookId = utils.parseNumber(str[0]);
-        int userId = utils.parseNumber(str[1]);
+        int bookId = Utils.parseNumber(str[0]);
+        int userId = Utils.parseNumber(str[1]);
         Book book = bookRepository.getById(bookId);
         if (book == null) {
             throw new BookNotFoundException("Книга не найдена.");
@@ -91,7 +89,7 @@ public class LoanRepository implements Repository<Loan>{
 
     public List<Loan> getByBookId(int bookId) {
         return loans.values().stream()
-                .filter(loan->loan.getBookId() == bookId)
+                .filter(loan -> loan.getBookId() == bookId)
                 .toList();
     }
 
@@ -100,8 +98,8 @@ public class LoanRepository implements Repository<Loan>{
         if (str.length != 2) {
             throw new IllegalArgumentException("Введите 2 параметра - id книги и id пользователя");
         }
-        int bookId = utils.parseNumber(str[0]);
-        int userId = utils.parseNumber(str[1]);
+        int bookId = Utils.parseNumber(str[0]);
+        int userId = Utils.parseNumber(str[1]);
         User user = userRepository.getById(userId);
         if (user == null) {
             throw new UserNotFoundException("Пользователь с ID " + userId + " не найден");
